@@ -871,10 +871,10 @@
 
       <section class="search-engine" aria-label="關鍵字搜尋引擎">
         <div class="search-row">
-          <input class="search-field" id="keywordSearch" type="search" placeholder="搜尋 KPI、AI、成交、帶看、服務費..." autocomplete="off" />
+          <input class="search-field" id="keywordSearch" type="search" placeholder="搜尋 KPI、AI、成交、帶看、教育訓練..." autocomplete="off" />
           <button class="search-clear" id="clearSearch" type="button">清除</button>
         </div>
-        <div class="search-meta" id="searchMeta">輸入關鍵字後，可快速篩選所有目標、KPI、漏斗與 AI 項目。</div>
+        <div class="search-meta" id="searchMeta">輸入關鍵字後，可快速篩選所有目標、KPI、漏斗、教育訓練與 AI 項目。</div>
       </section>
 
       <h1>不動產仲介三個月 500 萬成交系統</h1>
@@ -1050,6 +1050,19 @@
       </div>
 
       <div class="kpi-card">
+        <h2>每週教育訓練 KPI</h2>
+        <table>
+          <tbody>
+            <tr><td>教育訓練</td><td>1 場</td></tr>
+            <tr><td>成交話術演練</td><td>2 小時</td></tr>
+            <tr><td>案例複盤</td><td>3 件</td></tr>
+            <tr><td>新人陪跑檢核</td><td>5 人</td></tr>
+            <tr><td>AI 工具訓練</td><td>1 次</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="kpi-card">
         <h2>每月 KPI</h2>
         <table>
           <tbody>
@@ -1125,7 +1138,7 @@
       <p>在 AI Agent 與不動產結合的方向下，建議建立「AI 開發 + 顧問式銷售 + 高單價物件」模式。這不只追求 500 萬服務費，更能把流程沉澱成可複製、可擴張的團隊系統，讓未來每位新人都能依照相同 SOP 執行並放大成果。</p>
     </section>
 
-    <p class="footer">待辦與負責人：店長負責確認 90 天目標與每週 KPI；業務同仁負責每日開發、帶看、出價與議價紀錄；行銷負責 FB、IG、Threads、TikTok、YouTube Shorts 與 LINE 內容排程；AI Agent 負責名單整理、提醒、追蹤、發文與成交率分析；山禾 ops 負責網站版本維護。</p>
+    <p class="footer">待辦與負責人：店長負責確認 90 天目標、每週 KPI 與每週教育訓練 KPI；業務同仁負責每日開發、帶看、出價與議價紀錄；行銷負責 FB、IG、Threads、TikTok、YouTube Shorts 與 LINE 內容排程；AI Agent 負責名單整理、提醒、追蹤、發文與成交率分析；山禾 ops 負責網站版本維護。</p>
   </main>
 
   <script>
@@ -1404,7 +1417,7 @@
           });
 
           if (!query) {
-            searchMeta.textContent = "輸入關鍵字後，可快速篩選所有目標、KPI、漏斗與 AI 項目。";
+            searchMeta.textContent = "輸入關鍵字後，可快速篩選所有目標、KPI、漏斗、教育訓練與 AI 項目。";
             return;
           }
 
