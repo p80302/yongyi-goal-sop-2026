@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>永義房屋｜2026 設定目標量化實戰 SOP</title>
+  <meta name="description" content="永義房屋團隊設定目標、量化追蹤、週檢討與成交優化的實戰 SOP 儀表板。" />
+  <style>
+    :root {
+      --ink: #182231;
+      --muted: #5a687a;
+      --line: #dce4ed;
+      --bg: #f6f8fb;
+      --green: #10a56f;
+      --blue: #1786d9;
+      --gold: #d79612;
+      --red: #db4c4c;
+      --navy: #163c67;
+      --white: #fff;
+      --shadow: 0 18px 50px rgba(20, 40, 70, .12);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
+      background: var(--bg);
+      letter-spacing: 0;
+    }
+
+    .hero {
+      min-height: 86vh;
+      color: var(--white);
+      background:
+        linear-gradient(110deg, rgba(13, 42, 72, .94), rgba(13, 68, 88, .84)),
+        url("https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1800&q=80") center/cover;
+      display: flex;
+      align-items: center;
+      padding: 34px 20px 58px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 90px;
+      background: linear-gradient(to bottom, transparent, var(--bg));
+    }
+
+    .wrap {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: clamp(44px, 8vh, 96px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      font-weight: 800;
+      font-size: clamp(20px, 2.2vw, 32px);
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border: 2px solid rgba(255,255,255,.78);
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,.12);
+      font-size: 22px;
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .pill {
+      border: 1px solid rgba(255,255,255,.3);
+      background: rgba(255,255,255,.12);
+      padding: 10px 14px;
+      font-size: 14px;
+      color: rgba(255,255,255,.9);
+      white-space: nowrap;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 860px;
+      font-size: clamp(40px, 7vw, 86px);
+      line-height: 1.05;
+      font-weight: 900;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 22px 0 0;
+      color: rgba(255,255,255,.88);
+      font-size: clamp(18px, 2.2vw, 26px);
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 34px;
+      max-width: 920px;
+    }
+
+    .metric {
+      border-left: 4px solid var(--green);
+      background: rgba(255,255,255,.13);
+      padding: 14px;
+      backdrop-filter: blur(8px);
+      min-height: 92px;
+    }
+
+    .metric:nth-child(2) { border-color: var(--blue); }
+    .metric:nth-child(3) { border-color: var(--gold); }
+    .metric:nth-child(4) { border-color: var(--red); }
+    .metric strong {
+      display: block;
+      font-size: clamp(22px, 3vw, 34px);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .metric span {
+      color: rgba(255,255,255,.82);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    main {
+      padding: 42px 20px 72px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 0 auto 20px;
+      width: min(1180px, 100%);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(26px, 3.2vw, 42px);
+      line-height: 1.15;
+    }
+
+    .date-tag {
+      color: var(--muted);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .sop-grid {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .step {
+      background: var(--white);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      min-height: 390px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .step-header {
+      color: var(--white);
+      padding: 18px;
+      min-height: 132px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .step.green .step-header { background: linear-gradient(135deg, #0f9a70, #1fc58d); }
+    .step.blue .step-header { background: linear-gradient(135deg, #1374c8, #22a8e8); }
+    .step.gold .step-header { background: linear-gradient(135deg, #c9840b, #efbb2e); }
+    .step.red .step-header { background: linear-gradient(135deg, #c93f45, #ef6d68); }
+
+    .step-no {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.72);
+      background: rgba(255,255,255,.16);
+      font-weight: 900;
+    }
+
+    h3 {
+      margin: 14px 0 0;
+      font-size: 22px;
+      line-height: 1.18;
+    }
+
+    .en {
+      display: block;
+      margin-top: 4px;
+      font-size: 13px;
+      color: rgba(255,255,255,.78);
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+
+    .item {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 13px;
+    }
+    .item:last-child { border-bottom: 0; padding-bottom: 0; }
+    .item b {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 16px;
+    }
+    .item p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 15px;
+    }
+
+    .dashboard {
+      width: min(1180px, 100%);
+      margin: 28px auto 0;
+      background: var(--white);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .dash-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .dash-title h2 { font-size: clamp(24px, 2.7vw, 34px); }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .flow-box {
+      min-height: 106px;
+      border: 1px solid var(--line);
+      background: #fbfcfe;
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    .flow-box::after {
+      content: "→";
+      position: absolute;
+      right: -13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--blue);
+      font-weight: 900;
+      z-index: 1;
+    }
+    .flow-box:last-child::after { display: none; }
+    .flow-box small {
+      color: var(--muted);
+      font-weight: 800;
+    }
+    .flow-box strong {
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    .checklist {
+      width: min(1180px, 100%);
+      margin: 28px auto 0;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 16px;
+    }
+
+    .panel {
+      background: var(--white);
+      border: 1px solid var(--line);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel h2 {
+      font-size: 26px;
+      margin-bottom: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      padding: 12px 8px;
+      vertical-align: top;
+    }
+    th {
+      color: var(--muted);
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .owner-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .owner-list li {
+      border: 1px solid var(--line);
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: #fbfcfe;
+    }
+    .owner-list span {
+      color: var(--muted);
+      text-align: right;
+      font-size: 14px;
+    }
+
+    .footer {
+      width: min(1180px, 100%);
+      margin: 28px auto 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid, .sop-grid, .flow, .checklist {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .flow-box::after { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .hero { min-height: auto; padding-top: 22px; }
+      .topbar, .section-head, .dash-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .pill, .date-tag { white-space: normal; }
+      .hero-grid, .sop-grid, .flow, .checklist {
+        grid-template-columns: 1fr;
+      }
+      .step { min-height: auto; }
+      th, td { padding: 10px 4px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <nav class="topbar" aria-label="網站導覽">
+        <div class="brand"><span class="brand-mark">永</span><span>永義房屋｜目標量化實戰</span></div>
+        <div class="pill">2026 店務・業務・成交 SOP</div>
+      </nav>
+
+      <h1>把房仲目標拆成每天做得到的成交動作</h1>
+      <p class="lead">從商圈盤點、物件與客戶基準線，到 SMART 目標、四週里程碑、每日行動指標與週檢討，讓店長和業務能用同一張表追進度。</p>
+
+      <div class="hero-grid" aria-label="核心量化目標">
+        <div class="metric"><strong>20%</strong><span>月成交或委託有效成長目標</span></div>
+        <div class="metric"><strong>4 週</strong><span>每月拆成四段里程碑追蹤</span></div>
+        <div class="metric"><strong>50 通</strong><span>每週名單回訪與開發電話</span></div>
+        <div class="metric"><strong>90 分</strong><span>每日深度作業與客戶跟進時間</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section-head">
+      <h2>設定目標量化實戰流程圖</h2>
+      <div class="date-tag">Dashboard Version｜2026</div>
+    </section>
+
+    <section class="sop-grid" aria-label="四階段 SOP">
+      <article class="step green">
+        <div class="step-header">
+          <div class="step-no">1</div>
+          <h3>現況數據化盤點<span class="en">Foundation</span></h3>
+        </div>
+        <div class="body">
+          <div class="item"><b>SWOT 與商圈盤點</b><p>整理永義房屋門市優勢、弱點、競品、商圈供給、買方需求與價格帶。</p></div>
+          <div class="item"><b>建立 Base Line</b><p>記錄近 30 天新增委託、帶看、斡旋、成交、回訪、廣告詢問與物件曝光。</p></div>
+          <div class="item"><b>資源量化</b><p>盤點人力、廣告預算、可用名單、社群素材、社區熟悉度與合作通路。</p></div>
+        </div>
+      </article>
+
+      <article class="step blue">
+        <div class="step-header">
+          <div class="step-no">2</div>
+          <h3>SMART 目標結構化<span class="en">Structure</span></h3>
+        </div>
+        <div class="body">
+          <div class="item"><b>具體且可衡量</b><p>把「多成交」改成「本月新增 8 件有效委託、成交 2 件、回訪 200 組名單」。</p></div>
+          <div class="item"><b>挑戰係數</b><p>設定 110% 到 120% 的挑戰目標，保留 10% 到 15% 緩衝時間給突發狀況。</p></div>
+          <div class="item"><b>OKR 拆解</b><p>每個主目標拆成 3 個關鍵結果，讓店長週會可以直接檢查。</p></div>
+        </div>
+      </article>
+
+      <article class="step gold">
+        <div class="step-header">
+          <div class="step-no">3</div>
+          <h3>執行動作模型化<span class="en">Action</span></h3>
+        </div>
+        <div class="body">
+          <div class="item"><b>四週里程碑</b><p>第 1 週盤點名單，第 2 週集中開發，第 3 週帶看與議價，第 4 週收斂成交。</p></div>
+          <div class="item"><b>領先指標</b><p>用開發電話、社區拜訪、屋主回訪、買方配對、帶看數追蹤成交前動能。</p></div>
+          <div class="item"><b>每日時間分配</b><p>固定 90 分鐘深度工作：名單整理、屋主追蹤、客戶配對、成交推進。</p></div>
+        </div>
+      </article>
+
+      <article class="step red">
+        <div class="step-header">
+          <div class="step-no">4</div>
+          <h3>數據監控與調整<span class="en">Optimization</span></h3>
+        </div>
+        <div class="body">
+          <div class="item"><b>週達成率</b><p>每週檢查達成率，低於 70% 時立刻調整名單、話術、物件與時間分配。</p></div>
+          <div class="item"><b>信心指數</b><p>每週用 1 到 10 分評估目標可達性，低於 5 分需提出修正策略。</p></div>
+          <div class="item"><b>正向激勵</b><p>達成 20% 成長目標給予公開肯定、獎金或精準資源加碼。</p></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="dashboard" aria-label="簡化版量化流程圖">
+      <div class="dash-title">
+        <h2>簡化版量化流程圖</h2>
+        <div class="date-tag">從現況到成交的日常節奏</div>
+      </div>
+      <div class="flow">
+        <div class="flow-box"><small>輸入</small><strong>現況盤點</strong></div>
+        <div class="flow-box"><small>資源</small><strong>人力・名單・預算</strong></div>
+        <div class="flow-box"><small>轉化</small><strong>SMART 目標</strong></div>
+        <div class="flow-box"><small>拆解</small><strong>3 個 KR</strong></div>
+        <div class="flow-box"><small>執行</small><strong>每日行動指標</strong></div>
+        <div class="flow-box"><small>監控</small><strong>週達成率</strong></div>
+        <div class="flow-box"><small>產出</small><strong>最終目標 100%</strong></div>
+      </div>
+    </section>
+
+    <section class="checklist">
+      <div class="panel">
+        <h2>門市週會追蹤表</h2>
+        <table>
+          <thead>
+            <tr><th>指標</th><th>本週目標</th><th>檢核方式</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>新增有效委託</td><td>2 件</td><td>確認屋主、價格、授權狀態</td></tr>
+            <tr><td>買方回訪</td><td>50 組</td><td>電話或 LINE 回覆需留紀錄</td></tr>
+            <tr><td>帶看安排</td><td>8 組</td><td>標註物件、需求與下一步</td></tr>
+            <tr><td>斡旋推進</td><td>2 組</td><td>更新買賣雙方條件落差</td></tr>
+            <tr><td>社區經營</td><td>3 個重點社區</td><td>新增行情、成交或屋主資訊</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel">
+        <h2>負責人分工</h2>
+        <ul class="owner-list">
+          <li><b>店長</b><span>設定月目標、週檢討、資源調度</span></li>
+          <li><b>業務同仁</b><span>每日行動紀錄、客戶與屋主跟進</span></li>
+          <li><b>行政</b><span>資料整理、表單更新、會議紀錄</span></li>
+          <li><b>行銷</b><span>物件曝光、社群素材、名單導流</span></li>
+          <li><b>總部/區督導</b><span>目標校準、成交策略與教育訓練</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <p class="footer">待辦與負責人：店長負責確認正式 KPI；業務同仁負責每日數據回填；行政負責每週彙整；行銷負責物件曝光與名單來源；山禾 ops 負責網站版本維護。</p>
+  </main>
+</body>
+</html>
