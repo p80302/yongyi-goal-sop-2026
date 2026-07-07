@@ -100,6 +100,74 @@
       white-space: nowrap;
     }
 
+    .search-engine {
+      max-width: 760px;
+      margin: 0 0 clamp(30px, 6vh, 64px);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 8px;
+      background: rgba(255,255,255,.12);
+      backdrop-filter: blur(16px);
+      padding: 12px;
+      box-shadow: 0 18px 46px rgba(0, 0, 0, .18);
+    }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .search-field {
+      min-height: 50px;
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 8px;
+      background: rgba(255,255,255,.94);
+      color: var(--ink);
+      font: inherit;
+      font-size: 17px;
+      padding: 12px 14px;
+      outline: none;
+    }
+
+    .search-field:focus {
+      border-color: rgba(255,255,255,.7);
+      box-shadow: 0 0 0 4px rgba(255,255,255,.16);
+    }
+
+    .search-clear {
+      min-height: 50px;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 8px;
+      background: rgba(255,255,255,.12);
+      color: var(--white);
+      font: inherit;
+      font-weight: 800;
+      padding: 10px 16px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .search-clear:hover { background: rgba(255,255,255,.18); }
+
+    .search-meta {
+      margin: 9px 2px 0;
+      color: rgba(245,245,247,.78);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .search-hidden {
+      display: none !important;
+    }
+
+    .search-match {
+      outline: 3px solid rgba(245, 183, 0, .72);
+      outline-offset: 3px;
+    }
+
     h1 {
       margin: 0;
       max-width: 1040px;
@@ -756,6 +824,8 @@
         align-items: flex-start;
         flex-direction: column;
       }
+      .search-row { grid-template-columns: 1fr; }
+      .search-clear { width: 100%; }
       .brand { white-space: normal; }
       .pill, .date-tag { white-space: normal; }
       .hero-grid, .target-board, .phase-grid, .formula, .kpi-grid, .strategy-grid, .funnel-grid, .deal-grid {
@@ -777,6 +847,14 @@
         <div class="brand"><span class="brand-mark">永</span><span>永義房屋｜500 萬成交系統</span></div>
         <div class="pill">90 天・AI Agent・高單價成交 SOP</div>
       </nav>
+
+      <section class="search-engine" aria-label="關鍵字搜尋引擎">
+        <div class="search-row">
+          <input class="search-field" id="keywordSearch" type="search" placeholder="搜尋 KPI、AI、成交、帶看、服務費..." autocomplete="off" />
+          <button class="search-clear" id="clearSearch" type="button">清除</button>
+        </div>
+        <div class="search-meta" id="searchMeta">輸入關鍵字後，可快速篩選所有目標、KPI、漏斗與 AI 項目。</div>
+      </section>
 
       <h1>不動產仲介三個月 500 萬成交系統</h1>
       <p class="lead">把 500 萬服務費拆成案源、帶看、出價、斡旋與成交漏斗，結合 AI Agent 自動跟進，讓成交不靠運氣，而靠每天穩定執行的流程。</p>
@@ -1039,6 +1117,9 @@
       const itemCount = document.querySelector("#itemCount");
       const exportButton = document.querySelector("#exportRecords");
       const clearButton = document.querySelector("#clearRecords");
+      const keywordSearch = document.querySelector("#keywordSearch");
+      const clearSearch = document.querySelector("#clearSearch");
+      const searchMeta = document.querySelector("#searchMeta");
       const items = [];
 
       const pad = (value) => String(value).padStart(2, "0");
@@ -1270,10 +1351,60 @@
         });
       };
 
+      const buildSearchTargets = () => {
+        const selectors = [
+          ".metric",
+          ".panel",
+          ".phase",
+          ".dashboard",
+          ".kpi-card",
+          ".strategy-card",
+          ".funnel",
+          ".closing"
+        ];
+        return [...document.querySelectorAll(selectors.join(","))].map((node) => ({
+          node,
+          text: node.textContent.replace(/\s+/g, " ").trim().toLowerCase()
+        }));
+      };
+
+      const bindSearch = () => {
+        const targets = buildSearchTargets();
+
+        const applySearch = () => {
+          const query = keywordSearch.value.trim().toLowerCase();
+          let matched = 0;
+
+          targets.forEach(({ node, text }) => {
+            const isMatch = !query || text.includes(query);
+            node.classList.toggle("search-hidden", !isMatch);
+            node.classList.toggle("search-match", Boolean(query && isMatch));
+            if (query && isMatch) matched += 1;
+          });
+
+          if (!query) {
+            searchMeta.textContent = "輸入關鍵字後，可快速篩選所有目標、KPI、漏斗與 AI 項目。";
+            return;
+          }
+
+          searchMeta.textContent = matched
+            ? `找到 ${matched} 個相關項目。`
+            : "沒有找到符合的項目，請換一個關鍵字。";
+        };
+
+        keywordSearch.addEventListener("input", applySearch);
+        clearSearch.addEventListener("click", () => {
+          keywordSearch.value = "";
+          keywordSearch.focus();
+          applySearch();
+        });
+      };
+
       dateInput.value = today();
       enhanceTables();
       enhanceCards();
       bindInputs();
+      bindSearch();
       refresh();
     })();
   </script>
