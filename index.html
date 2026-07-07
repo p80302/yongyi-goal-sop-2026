@@ -533,6 +533,165 @@
       color: rgba(255,255,255,.9);
     }
 
+    .operation-board {
+      width: min(1200px, 100%);
+      margin: 0 auto 34px;
+      background: #1d1d1f;
+      color: var(--white);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: clamp(22px, 3vw, 34px);
+    }
+
+    .operation-top {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .operation-board h2 {
+      color: var(--white);
+      font-size: clamp(28px, 3.4vw, 46px);
+    }
+
+    .operation-board p {
+      margin: 8px 0 0;
+      color: rgba(245,245,247,.74);
+      line-height: 1.6;
+    }
+
+    .record-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .record-toolbar label {
+      display: grid;
+      gap: 6px;
+      color: rgba(245,245,247,.74);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .record-toolbar input,
+    .record-input {
+      min-height: 38px;
+      border: 1px solid rgba(0,0,0,.12);
+      border-radius: 8px;
+      background: var(--paper);
+      color: var(--ink);
+      font: inherit;
+      padding: 8px 10px;
+      width: 100%;
+    }
+
+    .record-toolbar input {
+      min-width: 152px;
+      border-color: rgba(255,255,255,.24);
+    }
+
+    .record-btn {
+      min-height: 38px;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 8px;
+      background: rgba(255,255,255,.1);
+      color: var(--white);
+      font: inherit;
+      font-weight: 700;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .record-btn:hover { background: rgba(255,255,255,.16); }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .stat-chip {
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 8px;
+      background: rgba(255,255,255,.08);
+      padding: 14px;
+      min-height: 94px;
+    }
+
+    .stat-chip small {
+      display: block;
+      color: rgba(245,245,247,.68);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .stat-chip b {
+      display: block;
+      color: var(--white);
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1;
+    }
+
+    .record-control {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .record-line {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .record-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .record-percent {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .progress {
+      height: 7px;
+      background: #e8e8ed;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #34c759, #ffcc00, #ff3b30);
+      transition: width .2s ease;
+    }
+
+    .record-cell {
+      min-width: 118px;
+      width: 118px;
+    }
+
+    .source-row.recorded {
+      grid-template-columns: 96px 1fr 46px 108px;
+    }
+
+    .rank-list li, .agent-list li {
+      flex-wrap: wrap;
+    }
+
     .footer {
       width: min(1200px, 100%);
       margin: 28px auto 0;
@@ -545,6 +704,9 @@
       .hero-grid, .target-board, .phase-grid, .formula, .kpi-grid, .strategy-grid, .funnel-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+      .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .operation-top { align-items: flex-start; flex-direction: column; }
+      .record-toolbar { justify-content: flex-start; }
       .formula-box::after { display: none; }
     }
 
@@ -559,7 +721,10 @@
       .hero-grid, .target-board, .phase-grid, .formula, .kpi-grid, .strategy-grid, .funnel-grid, .deal-grid {
         grid-template-columns: 1fr;
       }
-      .source-row { grid-template-columns: 82px 1fr 42px; }
+      .stat-grid { grid-template-columns: 1fr; }
+      .source-row, .source-row.recorded { grid-template-columns: 82px 1fr 42px; }
+      .source-row .record-control { grid-column: 1 / -1; }
+      .record-cell { min-width: 102px; width: 102px; }
       th, td { padding: 10px 4px; }
     }
   </style>
@@ -606,6 +771,28 @@
         <h2>建議鎖定</h2>
         <p class="subline">以 6~8 件高單價成交為主軸，比 20 件小案件更容易管理，也更適合建立團隊 SOP、分工制度與 AI Agent 協作流程。</p>
         <div class="recommend">人負責成交判斷與關係經營，AI 負責流程、提醒、內容與資料整理。</div>
+      </div>
+    </section>
+
+    <section class="operation-board" aria-label="成交紀錄台">
+      <div class="operation-top">
+        <div>
+          <h2>成交紀錄台</h2>
+          <p>每日輸入實際數字，系統會依日期保留紀錄，並自動彙整完成率、已記錄項目與投入量。</p>
+        </div>
+        <div class="record-toolbar">
+          <label>紀錄日期
+            <input id="recordDate" type="date" />
+          </label>
+          <button class="record-btn" id="exportRecords" type="button">匯出紀錄</button>
+          <button class="record-btn" id="clearRecords" type="button">清除本日</button>
+        </div>
+      </div>
+      <div class="stat-grid" aria-label="紀錄統計">
+        <div class="stat-chip"><small>已記錄項目</small><b id="filledCount">0</b></div>
+        <div class="stat-chip"><small>平均完成率</small><b id="avgProgress">0%</b></div>
+        <div class="stat-chip"><small>實際數字合計</small><b id="actualTotal">0</b></div>
+        <div class="stat-chip"><small>追蹤項目總數</small><b id="itemCount">0</b></div>
       </div>
     </section>
 
@@ -800,5 +987,227 @@
 
     <p class="footer">待辦與負責人：店長負責確認 90 天目標與每週 KPI；業務同仁負責每日開發、帶看、出價與議價紀錄；行銷負責 FB、IG、Threads、TikTok、YouTube Shorts 與 LINE 內容排程；AI Agent 負責名單整理、提醒、追蹤、發文與成交率分析；山禾 ops 負責網站版本維護。</p>
   </main>
+
+  <script>
+    (() => {
+      const STORAGE_KEY = "yongyi-500-system-records-v1";
+      const dateInput = document.querySelector("#recordDate");
+      const filledCount = document.querySelector("#filledCount");
+      const avgProgress = document.querySelector("#avgProgress");
+      const actualTotal = document.querySelector("#actualTotal");
+      const itemCount = document.querySelector("#itemCount");
+      const exportButton = document.querySelector("#exportRecords");
+      const clearButton = document.querySelector("#clearRecords");
+      const items = [];
+
+      const pad = (value) => String(value).padStart(2, "0");
+      const today = () => {
+        const now = new Date();
+        return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+      };
+
+      const loadRecords = () => {
+        try {
+          return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+        } catch {
+          return {};
+        }
+      };
+
+      const saveRecords = (records) => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+      };
+
+      const compact = (value) => value.replace(/\s+/g, "").replace(/[^\p{Letter}\p{Number}]+/gu, "-");
+      const parseTarget = (text) => {
+        const normalized = text.replace(/,/g, "");
+        const range = normalized.match(/(\d+(?:\.\d+)?)\s*(?:~|至|到)\s*(\d+(?:\.\d+)?)/);
+        if (range) return Number(range[2]);
+        const value = normalized.match(/(\d+(?:\.\d+)?)/);
+        return value ? Number(value[1]) : 0;
+      };
+
+      const makeKey = (group, label, targetText) => compact(`${group}-${label}-${targetText}`);
+
+      const createRecordControl = ({ group, label, targetText, target }) => {
+        const key = makeKey(group, label, targetText);
+        const control = document.createElement("div");
+        control.className = "record-control";
+        control.dataset.key = key;
+        control.dataset.target = String(target);
+
+        const line = document.createElement("div");
+        line.className = "record-line";
+
+        const input = document.createElement("input");
+        input.className = "record-input";
+        input.type = "number";
+        input.min = "0";
+        input.step = "1";
+        input.inputMode = "decimal";
+        input.placeholder = "輸入";
+        input.setAttribute("aria-label", `${group} ${label} 實際數字`);
+
+        const percent = document.createElement("span");
+        percent.className = "record-percent";
+        percent.textContent = target ? "0%" : "紀錄";
+
+        line.append(input, percent);
+
+        const progress = document.createElement("div");
+        progress.className = "progress";
+        progress.innerHTML = "<span></span>";
+
+        const labelNode = document.createElement("div");
+        labelNode.className = "record-label";
+        labelNode.textContent = target ? `目標 ${targetText}` : "實際紀錄";
+
+        control.append(line, progress, labelNode);
+        items.push({ key, group, label, targetText, target, input, percent, progress: progress.firstElementChild });
+        return control;
+      };
+
+      const enhanceTables = () => {
+        document.querySelectorAll(".kpi-card").forEach((card) => {
+          const group = card.querySelector("h2")?.textContent.trim() || "KPI";
+          card.querySelectorAll("tbody tr").forEach((row) => {
+            const cells = row.querySelectorAll("td");
+            if (cells.length < 2) return;
+            const label = cells[0].textContent.trim();
+            const targetText = cells[1].textContent.trim();
+            const td = document.createElement("td");
+            td.className = "record-cell";
+            td.append(createRecordControl({ group, label, targetText, target: parseTarget(targetText) }));
+            row.append(td);
+          });
+        });
+      };
+
+      const enhanceCards = () => {
+        document.querySelectorAll(".formula-box").forEach((box) => {
+          const label = box.querySelector("small")?.textContent.trim() || "每日公式";
+          const targetText = box.querySelector("strong")?.textContent.trim() || "";
+          box.append(createRecordControl({ group: "每日成功公式", label, targetText, target: parseTarget(targetText) }));
+        });
+
+        document.querySelectorAll(".funnel-step").forEach((box) => {
+          const label = box.querySelector("small")?.textContent.trim() || "成交漏斗";
+          const targetText = box.querySelector("b")?.textContent.trim() || "";
+          box.append(createRecordControl({ group: "成交漏斗", label, targetText, target: parseTarget(targetText) }));
+        });
+
+        document.querySelectorAll(".source-row").forEach((row) => {
+          row.classList.add("recorded");
+          const label = row.querySelector("b")?.textContent.trim() || "客戶來源";
+          const targetText = row.querySelector("span:last-child")?.textContent.trim() || "";
+          row.append(createRecordControl({ group: "客戶來源比例", label, targetText, target: 0 }));
+        });
+
+        document.querySelectorAll(".phase .item").forEach((item) => {
+          const group = item.closest(".phase")?.querySelector("h3")?.textContent.trim() || "作戰階段";
+          const label = item.querySelector("b")?.textContent.trim() || group;
+          const targetText = item.querySelector("p")?.textContent.trim() || "";
+          item.append(createRecordControl({ group, label, targetText, target: parseTarget(targetText) }));
+        });
+
+        document.querySelectorAll(".rank-list li, .agent-list li").forEach((row) => {
+          const group = row.closest(".strategy-card")?.querySelector("h2")?.textContent.trim() || "策略";
+          const label = row.querySelector("b")?.textContent.trim() || group;
+          const targetText = row.querySelector("span")?.textContent.trim() || "";
+          row.append(createRecordControl({ group, label, targetText, target: parseTarget(targetText) }));
+        });
+
+        document.querySelectorAll(".deal-box").forEach((box) => {
+          const label = box.querySelector("b")?.textContent.trim() || "服務費";
+          const targetText = box.querySelector("span")?.textContent.trim() || "";
+          box.append(createRecordControl({ group: "成交件數拆解", label, targetText, target: parseTarget(targetText) }));
+        });
+      };
+
+      const getDayBucket = (records) => {
+        const dateKey = dateInput.value || today();
+        records[dateKey] ||= {};
+        return records[dateKey];
+      };
+
+      const updateItem = (item, value) => {
+        const actual = Number(value || 0);
+        const pct = item.target ? Math.min(999, Math.round((actual / item.target) * 100)) : 0;
+        item.percent.textContent = item.target ? `${pct}%` : (actual ? "已記錄" : "紀錄");
+        item.progress.style.width = item.target ? `${Math.min(100, pct)}%` : (actual ? "100%" : "0");
+      };
+
+      const refresh = () => {
+        const records = loadRecords();
+        const bucket = getDayBucket(records);
+        let filled = 0;
+        let total = 0;
+        let progressSum = 0;
+        let progressItems = 0;
+
+        items.forEach((item) => {
+          const value = bucket[item.key] ?? "";
+          item.input.value = value;
+          const actual = Number(value || 0);
+          if (value !== "" && !Number.isNaN(actual)) {
+            filled += 1;
+            total += actual;
+          }
+          if (item.target > 0) {
+            progressItems += 1;
+            progressSum += Math.min(100, Math.round((actual / item.target) * 100));
+          }
+          updateItem(item, value);
+        });
+
+        filledCount.textContent = String(filled);
+        actualTotal.textContent = total.toLocaleString("zh-Hant");
+        itemCount.textContent = String(items.length);
+        avgProgress.textContent = `${progressItems ? Math.round(progressSum / progressItems) : 0}%`;
+      };
+
+      const bindInputs = () => {
+        items.forEach((item) => {
+          item.input.addEventListener("input", () => {
+            const records = loadRecords();
+            const bucket = getDayBucket(records);
+            if (item.input.value === "") {
+              delete bucket[item.key];
+            } else {
+              bucket[item.key] = item.input.value;
+            }
+            saveRecords(records);
+            refresh();
+          });
+        });
+
+        dateInput.addEventListener("change", refresh);
+
+        clearButton.addEventListener("click", () => {
+          const records = loadRecords();
+          delete records[dateInput.value || today()];
+          saveRecords(records);
+          refresh();
+        });
+
+        exportButton.addEventListener("click", () => {
+          const records = loadRecords();
+          const blob = new Blob([JSON.stringify(records, null, 2)], { type: "application/json" });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = `yongyi-500-system-records-${today()}.json`;
+          link.click();
+          URL.revokeObjectURL(url);
+        });
+      };
+
+      dateInput.value = today();
+      enhanceTables();
+      enhanceCards();
+      bindInputs();
+      refresh();
+    })();
+  </script>
 </body>
 </html>
