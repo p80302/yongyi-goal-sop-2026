@@ -641,6 +641,8 @@
       display: grid;
       gap: 8px;
       margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(0,0,0,.08);
     }
 
     .record-line {
@@ -679,9 +681,47 @@
       transition: width .2s ease;
     }
 
+    .record-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .record-metric {
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 8px;
+      background: #f5f5f7;
+      padding: 8px;
+      min-width: 0;
+    }
+
+    .record-metric small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .record-metric b {
+      display: block;
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.15;
+      overflow-wrap: anywhere;
+    }
+
+    .record-control.complete .record-metric.gap b {
+      color: var(--green);
+    }
+
+    .record-control.behind .record-metric.gap b {
+      color: var(--red);
+    }
+
     .record-cell {
-      min-width: 118px;
-      width: 118px;
+      min-width: 190px;
+      width: 190px;
     }
 
     .source-row.recorded {
@@ -724,7 +764,8 @@
       .stat-grid { grid-template-columns: 1fr; }
       .source-row, .source-row.recorded { grid-template-columns: 82px 1fr 42px; }
       .source-row .record-control { grid-column: 1 / -1; }
-      .record-cell { min-width: 102px; width: 102px; }
+      .record-cell { min-width: 172px; width: 172px; }
+      .record-metrics { grid-template-columns: 1fr; }
       th, td { padding: 10px 4px; }
     }
   </style>
@@ -778,7 +819,7 @@
       <div class="operation-top">
         <div>
           <h2>成交紀錄台</h2>
-          <p>每日輸入實際數字，系統會依日期保留紀錄，並自動彙整完成率、已記錄項目與投入量。</p>
+          <p>每個項目獨立輸入與計算，系統會依日期保留紀錄，並逐項顯示目標、實際、差距與完成率。</p>
         </div>
         <div class="record-toolbar">
           <label>紀錄日期
@@ -990,7 +1031,7 @@
 
   <script>
     (() => {
-      const STORAGE_KEY = "yongyi-500-system-records-v1";
+      const STORAGE_KEY = "yongyi-500-system-records-v2";
       const dateInput = document.querySelector("#recordDate");
       const filledCount = document.querySelector("#filledCount");
       const avgProgress = document.querySelector("#avgProgress");
@@ -1062,8 +1103,29 @@
         labelNode.className = "record-label";
         labelNode.textContent = target ? `目標 ${targetText}` : "實際紀錄";
 
-        control.append(line, progress, labelNode);
-        items.push({ key, group, label, targetText, target, input, percent, progress: progress.firstElementChild });
+        const metrics = document.createElement("div");
+        metrics.className = "record-metrics";
+        metrics.innerHTML = `
+          <div class="record-metric target"><small>目標</small><b>0</b></div>
+          <div class="record-metric actual"><small>實際</small><b>0</b></div>
+          <div class="record-metric gap"><small>差距</small><b>0</b></div>
+        `;
+
+        control.append(line, progress, metrics, labelNode);
+        items.push({
+          key,
+          group,
+          label,
+          targetText,
+          target,
+          input,
+          percent,
+          progress: progress.firstElementChild,
+          control,
+          targetNode: metrics.querySelector(".target b"),
+          actualNode: metrics.querySelector(".actual b"),
+          gapNode: metrics.querySelector(".gap b")
+        });
         return control;
       };
 
@@ -1133,8 +1195,14 @@
       const updateItem = (item, value) => {
         const actual = Number(value || 0);
         const pct = item.target ? Math.min(999, Math.round((actual / item.target) * 100)) : 0;
+        const gap = item.target ? item.target - actual : actual;
+        item.control.classList.toggle("complete", item.target > 0 && gap <= 0);
+        item.control.classList.toggle("behind", item.target > 0 && gap > 0);
         item.percent.textContent = item.target ? `${pct}%` : (actual ? "已記錄" : "紀錄");
         item.progress.style.width = item.target ? `${Math.min(100, pct)}%` : (actual ? "100%" : "0");
+        item.targetNode.textContent = item.target ? item.target.toLocaleString("zh-Hant") : "單項";
+        item.actualNode.textContent = actual.toLocaleString("zh-Hant");
+        item.gapNode.textContent = item.target ? (gap > 0 ? `差 ${gap.toLocaleString("zh-Hant")}` : "達標") : actual.toLocaleString("zh-Hant");
       };
 
       const refresh = () => {
