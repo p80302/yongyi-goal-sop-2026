@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>永義房屋｜2026 設定目標量化實戰 SOP</title>
-  <meta name="description" content="永義房屋團隊設定目標、量化追蹤、週檢討與成交優化的實戰 SOP 儀表板。" />
+  <title>永義房屋｜三個月 500 萬成交系統</title>
+  <meta name="description" content="永義房屋不動產仲介三個月 500 萬服務費成交系統，整合案源、帶看、成交、AI Agent 與每日 KPI。" />
   <style>
     :root {
       --ink: #263325;
@@ -12,6 +12,7 @@
       --line: #e2d7b6;
       --bg: #fbf1c8;
       --paper: #fff9df;
+      --paper-2: #fff3bf;
       --green: #3f7d4a;
       --yellow: #e2b33a;
       --gold: #c88d26;
@@ -29,7 +30,7 @@
       background:
         radial-gradient(circle at 12% 8%, rgba(201, 79, 64, .13), transparent 28%),
         radial-gradient(circle at 88% 4%, rgba(63, 125, 74, .16), transparent 30%),
-        linear-gradient(180deg, #fff4bd 0%, var(--bg) 44%, #f7e9b3 100%);
+        linear-gradient(180deg, #fff4bd 0%, var(--bg) 46%, #f7e9b3 100%);
       letter-spacing: 0;
     }
 
@@ -37,7 +38,7 @@
       min-height: 86vh;
       color: var(--white);
       background:
-        linear-gradient(112deg, rgba(36, 79, 52, .92), rgba(103, 104, 48, .78) 56%, rgba(172, 63, 51, .74)),
+        linear-gradient(112deg, rgba(36, 79, 52, .94), rgba(103, 104, 48, .8) 55%, rgba(172, 63, 51, .74)),
         url("https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1800&q=80") center/cover;
       display: flex;
       align-items: center;
@@ -66,7 +67,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 18px;
-      margin-bottom: clamp(44px, 8vh, 96px);
+      margin-bottom: clamp(42px, 8vh, 90px);
     }
 
     .brand {
@@ -92,7 +93,7 @@
     }
 
     .pill {
-      border: 1px solid rgba(255,255,255,.3);
+      border: 1px solid rgba(255,255,255,.32);
       background: rgba(255,255,255,.12);
       padding: 10px 14px;
       font-size: 14px;
@@ -102,17 +103,17 @@
 
     h1 {
       margin: 0;
-      max-width: 860px;
-      font-size: clamp(40px, 7vw, 86px);
-      line-height: 1.05;
+      max-width: 980px;
+      font-size: clamp(42px, 7vw, 88px);
+      line-height: 1.04;
       font-weight: 900;
     }
 
     .lead {
-      max-width: 760px;
+      max-width: 790px;
       margin: 22px 0 0;
-      color: rgba(255,255,255,.88);
-      font-size: clamp(18px, 2.2vw, 26px);
+      color: rgba(255,255,255,.9);
+      font-size: clamp(18px, 2.2vw, 25px);
       line-height: 1.55;
       font-weight: 500;
     }
@@ -122,28 +123,28 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 12px;
       margin-top: 34px;
-      max-width: 920px;
+      max-width: 980px;
     }
 
     .metric {
       border-left: 4px solid var(--green);
-      background: rgba(255,249,223,.18);
+      background: rgba(255,249,223,.2);
       padding: 14px;
       backdrop-filter: blur(8px);
-      min-height: 92px;
+      min-height: 96px;
     }
 
     .metric:nth-child(2) { border-color: var(--yellow); }
-    .metric:nth-child(3) { border-color: var(--green); }
-    .metric:nth-child(4) { border-color: var(--red); }
+    .metric:nth-child(3) { border-color: var(--red); }
+    .metric:nth-child(4) { border-color: var(--green); }
     .metric strong {
       display: block;
-      font-size: clamp(22px, 3vw, 34px);
+      font-size: clamp(24px, 3.2vw, 38px);
       line-height: 1;
       margin-bottom: 8px;
     }
     .metric span {
-      color: rgba(255,255,255,.82);
+      color: rgba(255,255,255,.84);
       font-size: 14px;
       line-height: 1.35;
     }
@@ -167,79 +168,125 @@
       line-height: 1.15;
     }
 
+    h3 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.18;
+    }
+
     .date-tag {
       color: var(--muted);
       font-weight: 700;
       white-space: nowrap;
     }
 
-    .sop-grid {
+    .target-board {
       width: min(1180px, 100%);
-      margin: 0 auto;
+      margin: 0 auto 28px;
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: 1.2fr .8fr;
       gap: 16px;
     }
 
-    .step {
+    .panel, .phase, .kpi-card, .strategy-card {
       background: var(--paper);
       border: 1px solid var(--line);
       box-shadow: var(--shadow);
-      min-height: 390px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
     }
 
-    .step-header {
-      color: var(--white);
+    .panel {
+      padding: 22px;
+    }
+
+    .target-main {
+      min-height: 100%;
+      display: grid;
+      gap: 18px;
+      align-content: start;
+    }
+
+    .big-number {
+      color: var(--red);
+      font-size: clamp(54px, 10vw, 118px);
+      line-height: .9;
+      font-weight: 950;
+    }
+
+    .subline {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 17px;
+    }
+
+    .deal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .deal-box {
+      border: 1px solid var(--line);
+      background: rgba(255, 252, 232, .78);
+      padding: 14px;
+      min-height: 110px;
+    }
+
+    .deal-box b {
+      display: block;
+      color: var(--deep-green);
+      font-size: 26px;
+      margin-bottom: 8px;
+    }
+
+    .recommend {
+      border-left: 5px solid var(--green);
+      background: linear-gradient(90deg, rgba(63,125,74,.12), rgba(255,249,223,.7));
+      padding: 16px;
+      font-weight: 800;
+      line-height: 1.55;
+    }
+
+    .phase-grid {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .phase {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phase-head {
+      min-height: 138px;
       padding: 18px;
-      min-height: 132px;
+      color: var(--white);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    .step.green .step-header { background: linear-gradient(135deg, #244f34, #4f9a5e); }
-    .step.blue .step-header { background: linear-gradient(135deg, #c48a22, #f0c85a); color: #2b351f; }
-    .step.gold .step-header { background: linear-gradient(135deg, #3f7d4a, #e0b23f); }
-    .step.red .step-header { background: linear-gradient(135deg, #9e3d34, #d86a4e); }
+    .phase:nth-child(1) .phase-head { background: linear-gradient(135deg, #244f34, #4f9a5e); }
+    .phase:nth-child(2) .phase-head { background: linear-gradient(135deg, #c48a22, #f0c85a); color: #2b351f; }
+    .phase:nth-child(3) .phase-head { background: linear-gradient(135deg, #9e3d34, #d86a4e); }
 
-    .step.blue .en { color: rgba(43,53,31,.72); }
-    .step.blue .step-no {
-      border-color: rgba(43,53,31,.45);
-      background: rgba(255,255,255,.24);
-    }
-
-    .step-no {
+    .phase-no {
       width: 38px;
       height: 38px;
       display: grid;
       place-items: center;
-      border: 1px solid rgba(255,255,255,.72);
+      border: 1px solid currentColor;
       background: rgba(255,255,255,.16);
       font-weight: 900;
     }
 
-    h3 {
-      margin: 14px 0 0;
-      font-size: 22px;
-      line-height: 1.18;
-    }
-
-    .en {
-      display: block;
-      margin-top: 4px;
-      font-size: 13px;
-      color: rgba(255,255,255,.78);
-      text-transform: uppercase;
-      font-weight: 800;
-    }
-
-    .body {
+    .phase-body {
       padding: 18px;
-      display: flex;
-      flex-direction: column;
+      display: grid;
       gap: 14px;
       flex: 1;
     }
@@ -280,14 +327,14 @@
 
     .dash-title h2 { font-size: clamp(24px, 2.7vw, 34px); }
 
-    .flow {
+    .formula {
       display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 10px;
     }
 
-    .flow-box {
-      min-height: 106px;
+    .formula-box {
+      min-height: 110px;
       border: 1px solid var(--line);
       background: rgba(255, 252, 232, .78);
       padding: 14px 12px;
@@ -296,7 +343,8 @@
       justify-content: space-between;
       position: relative;
     }
-    .flow-box::after {
+
+    .formula-box::after {
       content: "→";
       position: absolute;
       right: -13px;
@@ -306,32 +354,29 @@
       font-weight: 900;
       z-index: 1;
     }
-    .flow-box:last-child::after { display: none; }
-    .flow-box small {
+    .formula-box:last-child::after { display: none; }
+    .formula-box small {
       color: var(--muted);
       font-weight: 800;
     }
-    .flow-box strong {
-      font-size: 17px;
+    .formula-box strong {
+      font-size: 18px;
       line-height: 1.25;
     }
 
-    .checklist {
+    .kpi-grid {
       width: min(1180px, 100%);
       margin: 28px auto 0;
       display: grid;
-      grid-template-columns: 1.1fr .9fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
     }
 
-    .panel {
-      background: var(--paper);
-      border: 1px solid var(--line);
+    .kpi-card {
       padding: 22px;
-      box-shadow: var(--shadow);
     }
 
-    .panel h2 {
+    .kpi-card h2 {
       font-size: 26px;
       margin-bottom: 14px;
     }
@@ -354,14 +399,56 @@
       text-transform: uppercase;
     }
 
-    .owner-list {
+    .source-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .source-row {
+      display: grid;
+      grid-template-columns: 96px 1fr 46px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bar {
+      height: 12px;
+      background: #eadba4;
+      overflow: hidden;
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), var(--yellow), var(--red));
+    }
+
+    .strategy-grid {
+      width: min(1180px, 100%);
+      margin: 28px auto 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .strategy-card {
+      padding: 22px;
+    }
+
+    .strategy-card h2 {
+      font-size: 26px;
+      margin-bottom: 14px;
+    }
+
+    .rank-list, .agent-list {
       display: grid;
       gap: 10px;
       margin: 0;
       padding: 0;
       list-style: none;
     }
-    .owner-list li {
+
+    .rank-list li, .agent-list li {
       border: 1px solid var(--line);
       padding: 12px;
       display: flex;
@@ -370,10 +457,67 @@
       gap: 12px;
       background: rgba(255, 252, 232, .78);
     }
-    .owner-list span {
+
+    .rank-list span, .agent-list span {
       color: var(--muted);
       text-align: right;
       font-size: 14px;
+    }
+
+    .funnel {
+      width: min(1180px, 100%);
+      margin: 28px auto 0;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .funnel-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .funnel-step {
+      border: 1px solid var(--line);
+      background: rgba(255, 252, 232, .78);
+      padding: 14px;
+      min-height: 98px;
+    }
+
+    .funnel-step small {
+      display: block;
+      color: var(--muted);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .funnel-step b {
+      display: block;
+      color: var(--deep-green);
+      font-size: 24px;
+    }
+
+    .closing {
+      width: min(1180px, 100%);
+      margin: 28px auto 0;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--deep-green), #6d7a39 58%, #a84235);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .closing h2 {
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .closing p {
+      margin: 0;
+      line-height: 1.8;
+      font-size: 17px;
+      color: rgba(255,255,255,.9);
     }
 
     .footer {
@@ -385,10 +529,10 @@
     }
 
     @media (max-width: 980px) {
-      .hero-grid, .sop-grid, .flow, .checklist {
+      .hero-grid, .target-board, .phase-grid, .formula, .kpi-grid, .strategy-grid, .funnel-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-      .flow-box::after { display: none; }
+      .formula-box::after { display: none; }
     }
 
     @media (max-width: 640px) {
@@ -397,11 +541,12 @@
         align-items: flex-start;
         flex-direction: column;
       }
+      .brand { white-space: normal; }
       .pill, .date-tag { white-space: normal; }
-      .hero-grid, .sop-grid, .flow, .checklist {
+      .hero-grid, .target-board, .phase-grid, .formula, .kpi-grid, .strategy-grid, .funnel-grid, .deal-grid {
         grid-template-columns: 1fr;
       }
-      .step { min-height: auto; }
+      .source-row { grid-template-columns: 82px 1fr 42px; }
       th, td { padding: 10px 4px; }
     }
   </style>
@@ -410,124 +555,237 @@
   <header class="hero">
     <div class="wrap">
       <nav class="topbar" aria-label="網站導覽">
-        <div class="brand"><span class="brand-mark">永</span><span>永義房屋｜目標量化實戰</span></div>
-        <div class="pill">2026 店務・業務・成交 SOP</div>
+        <div class="brand"><span class="brand-mark">永</span><span>永義房屋｜500 萬成交系統</span></div>
+        <div class="pill">90 天・AI Agent・高單價成交 SOP</div>
       </nav>
 
-      <h1>把房仲目標拆成每天做得到的成交動作</h1>
-      <p class="lead">從商圈盤點、物件與客戶基準線，到 SMART 目標、四週里程碑、每日行動指標與週檢討，讓店長和業務能用同一張表追進度。</p>
+      <h1>不動產仲介三個月 500 萬成交系統</h1>
+      <p class="lead">把 500 萬服務費拆成案源、帶看、出價、斡旋與成交漏斗，結合 AI Agent 自動跟進，讓成交不靠運氣，而靠每天穩定執行的流程。</p>
 
       <div class="hero-grid" aria-label="核心量化目標">
-        <div class="metric"><strong>20%</strong><span>月成交或委託有效成長目標</span></div>
-        <div class="metric"><strong>4 週</strong><span>每月拆成四段里程碑追蹤</span></div>
-        <div class="metric"><strong>50 通</strong><span>每週名單回訪與開發電話</span></div>
-        <div class="metric"><strong>90 分</strong><span>每日深度作業與客戶跟進時間</span></div>
+        <div class="metric"><strong>90 天</strong><span>從案源建立到成交放大的完整週期</span></div>
+        <div class="metric"><strong>500 萬</strong><span>終極仲介服務費收入目標</span></div>
+        <div class="metric"><strong>6~8 件</strong><span>鎖定高單價成交，降低管理複雜度</span></div>
+        <div class="metric"><strong>AI 100%</strong><span>名單、追蹤、發文與提醒全流程輔助</span></div>
       </div>
     </div>
   </header>
 
   <main>
     <section class="section-head">
-      <h2>設定目標量化實戰流程圖</h2>
-      <div class="date-tag">Dashboard Version｜2026</div>
+      <h2>90 天終極目標</h2>
+      <div class="date-tag">永義房屋｜三個月作戰儀表板</div>
     </section>
 
-    <section class="sop-grid" aria-label="四階段 SOP">
-      <article class="step green">
-        <div class="step-header">
-          <div class="step-no">1</div>
-          <h3>現況數據化盤點<span class="en">Foundation</span></h3>
+    <section class="target-board" aria-label="90 天 500 萬目標">
+      <div class="panel target-main">
+        <div>
+          <div class="big-number">500 萬</div>
+          <p class="subline">仲介服務費收入目標。系統不追求大量低品質案件，而是鎖定 6~8 件高單價成交，搭配可複製的開發、帶看、議價與 AI 流程。</p>
         </div>
-        <div class="body">
-          <div class="item"><b>SWOT 與商圈盤點</b><p>整理永義房屋門市優勢、弱點、競品、商圈供給、買方需求與價格帶。</p></div>
-          <div class="item"><b>建立 Base Line</b><p>記錄近 30 天新增委託、帶看、斡旋、成交、回訪、廣告詢問與物件曝光。</p></div>
-          <div class="item"><b>資源量化</b><p>盤點人力、廣告預算、可用名單、社群素材、社區熟悉度與合作通路。</p></div>
+        <div class="deal-grid">
+          <div class="deal-box"><b>50 萬</b><span>平均每件服務費，需要 10 件成交。</span></div>
+          <div class="deal-box"><b>80 萬</b><span>平均每件服務費，需要約 6~7 件成交。</span></div>
+          <div class="deal-box"><b>100 萬</b><span>平均每件服務費，需要 5 件成交。</span></div>
         </div>
-      </article>
-
-      <article class="step blue">
-        <div class="step-header">
-          <div class="step-no">2</div>
-          <h3>SMART 目標結構化<span class="en">Structure</span></h3>
-        </div>
-        <div class="body">
-          <div class="item"><b>具體且可衡量</b><p>把「多成交」改成「本月新增 8 件有效委託、成交 2 件、回訪 200 組名單」。</p></div>
-          <div class="item"><b>挑戰係數</b><p>設定 110% 到 120% 的挑戰目標，保留 10% 到 15% 緩衝時間給突發狀況。</p></div>
-          <div class="item"><b>OKR 拆解</b><p>每個主目標拆成 3 個關鍵結果，讓店長週會可以直接檢查。</p></div>
-        </div>
-      </article>
-
-      <article class="step gold">
-        <div class="step-header">
-          <div class="step-no">3</div>
-          <h3>執行動作模型化<span class="en">Action</span></h3>
-        </div>
-        <div class="body">
-          <div class="item"><b>四週里程碑</b><p>第 1 週盤點名單，第 2 週集中開發，第 3 週帶看與議價，第 4 週收斂成交。</p></div>
-          <div class="item"><b>領先指標</b><p>用開發電話、社區拜訪、屋主回訪、買方配對、帶看數追蹤成交前動能。</p></div>
-          <div class="item"><b>每日時間分配</b><p>固定 90 分鐘深度工作：名單整理、屋主追蹤、客戶配對、成交推進。</p></div>
-        </div>
-      </article>
-
-      <article class="step red">
-        <div class="step-header">
-          <div class="step-no">4</div>
-          <h3>數據監控與調整<span class="en">Optimization</span></h3>
-        </div>
-        <div class="body">
-          <div class="item"><b>週達成率</b><p>每週檢查達成率，低於 70% 時立刻調整名單、話術、物件與時間分配。</p></div>
-          <div class="item"><b>信心指數</b><p>每週用 1 到 10 分評估目標可達性，低於 5 分需提出修正策略。</p></div>
-          <div class="item"><b>正向激勵</b><p>達成 20% 成長目標給予公開肯定、獎金或精準資源加碼。</p></div>
-        </div>
-      </article>
-    </section>
-
-    <section class="dashboard" aria-label="簡化版量化流程圖">
-      <div class="dash-title">
-        <h2>簡化版量化流程圖</h2>
-        <div class="date-tag">從現況到成交的日常節奏</div>
       </div>
-      <div class="flow">
-        <div class="flow-box"><small>輸入</small><strong>現況盤點</strong></div>
-        <div class="flow-box"><small>資源</small><strong>人力・名單・預算</strong></div>
-        <div class="flow-box"><small>轉化</small><strong>SMART 目標</strong></div>
-        <div class="flow-box"><small>拆解</small><strong>3 個 KR</strong></div>
-        <div class="flow-box"><small>執行</small><strong>每日行動指標</strong></div>
-        <div class="flow-box"><small>監控</small><strong>週達成率</strong></div>
-        <div class="flow-box"><small>產出</small><strong>最終目標 100%</strong></div>
-      </div>
-    </section>
-
-    <section class="checklist">
       <div class="panel">
-        <h2>門市週會追蹤表</h2>
+        <h2>建議鎖定</h2>
+        <p class="subline">以 6~8 件高單價成交為主軸，比 20 件小案件更容易管理，也更適合建立團隊 SOP、分工制度與 AI Agent 協作流程。</p>
+        <div class="recommend">人負責成交判斷與關係經營，AI 負責流程、提醒、內容與資料整理。</div>
+      </div>
+    </section>
+
+    <section class="section-head">
+      <h2>三階段成交作戰</h2>
+      <div class="date-tag">Month 1 → Month 3</div>
+    </section>
+
+    <section class="phase-grid" aria-label="三個月作戰階段">
+      <article class="phase">
+        <div class="phase-head">
+          <div class="phase-no">1</div>
+          <h3>第一階段｜建立案源</h3>
+        </div>
+        <div class="phase-body">
+          <div class="item"><b>第 1 個月目標</b><p>每天新增委託 2 件、買方 3 組；一個月累積專任 20 件、一般 40 件、買方 60 組。</p></div>
+          <div class="item"><b>上午工作</b><p>陌生開發 50 通、舊客回訪 20 位、LINE 經營 30 人。</p></div>
+          <div class="item"><b>下午工作</b><p>看屋、開發地主、商圈拜訪，持續補充有效案源與買方需求。</p></div>
+          <div class="item"><b>晚上工作</b><p>社群直播，並由 AI 自動跟進名單、提醒回訪與整理資料。</p></div>
+        </div>
+      </article>
+
+      <article class="phase">
+        <div class="phase-head">
+          <div class="phase-no">2</div>
+          <h3>第二階段｜大量帶看</h3>
+        </div>
+        <div class="phase-body">
+          <div class="item"><b>第 2 個月目標</b><p>每天帶看 3 組、出價 2 組、議價 1 組。</p></div>
+          <div class="item"><b>月度量化</b><p>約 90 組帶看、60 次出價、30 次斡旋，推進到 15 件簽約機會。</p></div>
+          <div class="item"><b>執行重點</b><p>把第 1 個月累積的案源與買方需求集中配對，用議價節奏提高成交機率。</p></div>
+        </div>
+      </article>
+
+      <article class="phase">
+        <div class="phase-head">
+          <div class="phase-no">3</div>
+          <h3>第三階段｜成交月</h3>
+        </div>
+        <div class="phase-body">
+          <div class="item"><b>第 3 個月目標</b><p>每天成交 1 件以上作為高強度衝刺目標，集中處理已成熟案源。</p></div>
+          <div class="item"><b>成交後動作</b><p>開始交屋、介紹、轉介紹，讓單次成交延伸成下一輪客源。</p></div>
+          <div class="item"><b>管理重點</b><p>將簽約、交屋、轉介紹與客戶關係維護納入 AI 提醒，避免成交後流程斷線。</p></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="dashboard" aria-label="每日成功公式">
+      <div class="dash-title">
+        <h2>每日成功公式</h2>
+        <div class="date-tag">持續 90 天，讓成交依賴流程</div>
+      </div>
+      <div class="formula">
+        <div class="formula-box"><small>電話開發</small><strong>100 通</strong></div>
+        <div class="formula-box"><small>有效對話</small><strong>20 位</strong></div>
+        <div class="formula-box"><small>約訪</small><strong>5 位</strong></div>
+        <div class="formula-box"><small>帶看</small><strong>3 組</strong></div>
+        <div class="formula-box"><small>出價</small><strong>2 組</strong></div>
+        <div class="formula-box"><small>議價</small><strong>1 次</strong></div>
+      </div>
+    </section>
+
+    <section class="kpi-grid" aria-label="KPI 儀表板">
+      <div class="kpi-card">
+        <h2>每日 KPI</h2>
         <table>
-          <thead>
-            <tr><th>指標</th><th>本週目標</th><th>檢核方式</th></tr>
-          </thead>
           <tbody>
-            <tr><td>新增有效委託</td><td>2 件</td><td>確認屋主、價格、授權狀態</td></tr>
-            <tr><td>買方回訪</td><td>50 組</td><td>電話或 LINE 回覆需留紀錄</td></tr>
-            <tr><td>帶看安排</td><td>8 組</td><td>標註物件、需求與下一步</td></tr>
-            <tr><td>斡旋推進</td><td>2 組</td><td>更新買賣雙方條件落差</td></tr>
-            <tr><td>社區經營</td><td>3 個重點社區</td><td>新增行情、成交或屋主資訊</td></tr>
+            <tr><td>電話開發</td><td>100 通</td></tr>
+            <tr><td>地主拜訪</td><td>5 位</td></tr>
+            <tr><td>商圈拜訪</td><td>10 家店</td></tr>
+            <tr><td>拜訪屋主</td><td>3 位</td></tr>
+            <tr><td>LINE 互動</td><td>30 則</td></tr>
           </tbody>
         </table>
       </div>
 
-      <div class="panel">
-        <h2>負責人分工</h2>
-        <ul class="owner-list">
-          <li><b>店長</b><span>設定月目標、週檢討、資源調度</span></li>
-          <li><b>業務同仁</b><span>每日行動紀錄、客戶與屋主跟進</span></li>
-          <li><b>行政</b><span>資料整理、表單更新、會議紀錄</span></li>
-          <li><b>行銷</b><span>物件曝光、社群素材、名單導流</span></li>
-          <li><b>總部/區督導</b><span>目標校準、成交策略與教育訓練</span></li>
-        </ul>
+      <div class="kpi-card">
+        <h2>網路 KPI</h2>
+        <table>
+          <tbody>
+            <tr><td>FB</td><td>1 篇</td></tr>
+            <tr><td>IG</td><td>2 篇</td></tr>
+            <tr><td>Threads</td><td>5 篇</td></tr>
+            <tr><td>TikTok</td><td>2 支</td></tr>
+            <tr><td>YouTube Shorts</td><td>2 支</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="kpi-card">
+        <h2>AI KPI</h2>
+        <table>
+          <tbody>
+            <tr><td>AI 客服</td><td>24 小時回答</td></tr>
+            <tr><td>AI 名單整理</td><td>每天更新</td></tr>
+            <tr><td>AI 自動追蹤</td><td>100%</td></tr>
+            <tr><td>AI 自動發文</td><td>全平台</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
-    <p class="footer">待辦與負責人：店長負責確認正式 KPI；業務同仁負責每日數據回填；行政負責每週彙整；行銷負責物件曝光與名單來源；山禾 ops 負責網站版本維護。</p>
+    <section class="kpi-grid" aria-label="週月 KPI">
+      <div class="kpi-card">
+        <h2>每週 KPI</h2>
+        <table>
+          <tbody>
+            <tr><td>新增委託</td><td>10 件</td></tr>
+            <tr><td>專任</td><td>5 件</td></tr>
+            <tr><td>帶看</td><td>20 組</td></tr>
+            <tr><td>出價</td><td>10 組</td></tr>
+            <tr><td>成交</td><td>2 件</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="kpi-card">
+        <h2>每月 KPI</h2>
+        <table>
+          <tbody>
+            <tr><td>委託</td><td>40 件</td></tr>
+            <tr><td>買方</td><td>60 組</td></tr>
+            <tr><td>帶看</td><td>80 組</td></tr>
+            <tr><td>成交</td><td>2~3 件</td></tr>
+            <tr><td>服務費</td><td>160~180 萬</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="kpi-card">
+        <h2>客戶來源比例</h2>
+        <div class="source-grid">
+          <div class="source-row"><b>陌生開發</b><div class="bar"><span style="width:30%"></span></div><span>30%</span></div>
+          <div class="source-row"><b>舊客介紹</b><div class="bar"><span style="width:20%"></span></div><span>20%</span></div>
+          <div class="source-row"><b>FB</b><div class="bar"><span style="width:15%"></span></div><span>15%</span></div>
+          <div class="source-row"><b>TikTok</b><div class="bar"><span style="width:10%"></span></div><span>10%</span></div>
+          <div class="source-row"><b>YouTube</b><div class="bar"><span style="width:10%"></span></div><span>10%</span></div>
+          <div class="source-row"><b>LINE</b><div class="bar"><span style="width:10%"></span></div><span>10%</span></div>
+          <div class="source-row"><b>合作仲介</b><div class="bar"><span style="width:5%"></span></div><span>5%</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="strategy-grid" aria-label="商品策略與 AI Agent 系統">
+      <div class="strategy-card">
+        <h2>商品策略</h2>
+        <ul class="rank-list">
+          <li><b>1. 專任住宅</b><span>成交速度最快，維持現金流</span></li>
+          <li><b>2. 店面</b><span>單價高，需求明確</span></li>
+          <li><b>3. 商辦</b><span>適合企業型買方</span></li>
+          <li><b>4. 農地</b><span>需控管成交週期</span></li>
+          <li><b>5. 建地</b><span>金額高，議價期較長</span></li>
+          <li><b>6. 工業地</b><span>大型案件搭配住宅案操作</span></li>
+        </ul>
+        <p class="subline">大型土地成交金額高，但成交週期較長，因此應搭配住宅案維持現金流。</p>
+      </div>
+
+      <div class="strategy-card">
+        <h2>AI Agent 系統</h2>
+        <ul class="agent-list">
+          <li><b>AI 接電話 / 客服</b><span>24 小時回應詢問</span></li>
+          <li><b>AI 追蹤名單</b><span>自動提醒回訪</span></li>
+          <li><b>AI 生成短影音</b><span>生成、剪片、發布全平台</span></li>
+          <li><b>AI 分析成交率</b><span>提醒議價與下一步</span></li>
+          <li><b>AI 市場分析</b><span>整理商圈行情與話術素材</span></li>
+        </ul>
+        <p class="subline">形成「人負責成交，AI 負責流程」的運作模式。</p>
+      </div>
+    </section>
+
+    <section class="funnel" aria-label="500 萬成交漏斗">
+      <div class="dash-title">
+        <h2>成交漏斗｜以 500 萬服務費為目標</h2>
+        <div class="date-tag">三個月總量</div>
+      </div>
+      <div class="funnel-grid">
+        <div class="funnel-step"><small>電話開發</small><b>9,000 人</b></div>
+        <div class="funnel-step"><small>有效對話</small><b>2,000 人</b></div>
+        <div class="funnel-step"><small>約訪</small><b>600 人</b></div>
+        <div class="funnel-step"><small>看屋 / 看地</small><b>300 組</b></div>
+        <div class="funnel-step"><small>出價</small><b>80 組</b></div>
+        <div class="funnel-step"><small>斡旋</small><b>40 組</b></div>
+        <div class="funnel-step"><small>簽約</small><b>15 件</b></div>
+        <div class="funnel-step"><small>成交 / 服務費</small><b>6~8 件 / 500 萬</b></div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <h2>關鍵成功指標</h2>
+      <p>在 AI Agent 與不動產結合的方向下，建議建立「AI 開發 + 顧問式銷售 + 高單價物件」模式。這不只追求 500 萬服務費，更能把流程沉澱成可複製、可擴張的團隊系統，讓未來每位新人都能依照相同 SOP 執行並放大成果。</p>
+    </section>
+
+    <p class="footer">待辦與負責人：店長負責確認 90 天目標與每週 KPI；業務同仁負責每日開發、帶看、出價與議價紀錄；行銷負責 FB、IG、Threads、TikTok、YouTube Shorts 與 LINE 內容排程；AI Agent 負責名單整理、提醒、追蹤、發文與成交率分析；山禾 ops 負責網站版本維護。</p>
   </main>
 </body>
 </html>
